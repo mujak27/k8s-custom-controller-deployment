@@ -17,46 +17,29 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // CustomDeploymentSpec defines the desired state of CustomDeployment
 type CustomDeploymentSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-	// The following markers will use OpenAPI v3 schema to validate the value
-	// More info: https://book.kubebuilder.io/reference/markers/crd-validation.html
+	// Image is the image for the single workload container.
+	// +kubebuilder:validation:MinLength=1
+	Image string `json:"image"`
 
-	// foo is an example field of CustomDeployment. Edit customdeployment_types.go to remove/update
+	// Replicas is the initial replica count, used only when creating the Deployment.
+	// +kubebuilder:default=1
+	// +kubebuilder:validation:Minimum=1
 	// +optional
-	Foo *string `json:"foo,omitempty"`
+	Replicas int32 `json:"replicas"`
+
+	// Resources configures the single workload container's requests and limits.
+	Resources corev1.ResourceRequirements `json:"resources"`
 }
 
 // CustomDeploymentStatus defines the observed state of CustomDeployment.
 type CustomDeploymentStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// For Kubernetes API conventions, see:
-	// https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties
-
-	// conditions represent the current state of the CustomDeployment resource.
-	// Each condition has a unique type and reflects the status of a specific aspect of the resource.
-	//
-	// Standard condition types include:
-	// - "Available": the resource is fully functional
-	// - "Progressing": the resource is being created or updated
-	// - "Degraded": the resource failed to reach or maintain its desired state
-	//
-	// The status of each condition is one of True, False, or Unknown.
-	// +listType=map
-	// +listMapKey=type
-	// +optional
-	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true

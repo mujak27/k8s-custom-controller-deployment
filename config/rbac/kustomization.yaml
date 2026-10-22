@@ -25,4 +25,3 @@ resources:
 - customdeployment_admin_role.yaml
 - customdeployment_editor_role.yaml
 - customdeployment_viewer_role.yaml
-
