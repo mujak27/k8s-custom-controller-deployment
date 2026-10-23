@@ -1,0 +1,17 @@
+apiVersion: workloads.example.com/v1alpha1
+kind: CustomDeployment
+metadata:
+  labels:
+    app.kubernetes.io/name: custom-controller-deployment
+    app.kubernetes.io/managed-by: kustomize
+  name: customdeployment-sample
+spec:
+  image: nginx:1.28.0
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
